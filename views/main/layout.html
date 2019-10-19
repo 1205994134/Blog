@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Blog</title>
+	<meta charset="utf-8">
+	<!-- Mobile Specific Meta  -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<!-- CSS -->
+	<link rel="stylesheet" href="../public/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../public/css/jquery-ui.css">
+	<link rel="stylesheet" href="../public/css/all.min.css">
+	<link rel="stylesheet" href="../public/css/owl.carousel.min.css">
+	<link rel="stylesheet" href="../public/css/animate.css">
+	<link rel="stylesheet" href="../public/css/stellarnav.min.css">
+	<link rel="stylesheet" href="../public/css/magnific-popup.css">
+	<link rel="stylesheet" href="../public/fonts/stylesheet.css">
+	<link rel="stylesheet" href="../public/css/style.css">
+	<link rel="stylesheet" href="../public/css/responsive.css">
+		<!-- Scripts -->
+		<script src="../public/js/jquery-3.3.1.min.js"></script>
+		<script src="../public/js/jquery-ui.js"></script>
+		<script src="../public/js/owl.carousel.min.js"></script>
+		<script src="../public/js/jquery.counterup.min.js"></script>
+		<script src="../public/js/countdown.js"></script>
+		<script src="../public/js/stellarnav.min.js"></script>
+		<script src="../public/js/imagesloaded.pkgd.min.js"></script>
+		<script src="../public/js/isotope.pkgd.min.js"></script>
+		<script src="../public/js/jquery.magnific-popup.min.js"></script>
+		<script src="../public/js/jquery.scrollUp.js"></script>
+		<script src="../public/js/jquery.waypoints.min.js"></script>
+		<script src="../public/js/popper.min.js"></script>
+		<script src="../public/js/bootstrap.min.js"></script>
+		
+	
+</head>
+<body>
+	<div id="preloader"></div>
+	<header>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 col-sm-4 col-7">
+					<div class="main-menu stellarnav">
+						<ul>
+							{% if category == '' %}
+							<li><a href="/">Blog</a></li>
+							{% else %}
+							<a href="/">Blog</a>
+							{% endif %}
+							{% for cate in categories %}
+								{% if category == cate.id %}
+								<li><a href="/?category={{cate.id}}" class="focus">{{cate.name}}</a></li>
+                				{% else %}
+                				<li><a href="/?category={{cate.id}}">{{cate.name}}</a></li>
+								{% endif %}
+							{% endfor %} 
+						</ul>
+					</div>
+				</div>
+				{% if userInfo._id %}
+				<div class="col-lg-2 col-sm-4 col-12 d-none d-sm-block">					
+					<div class="lets-chat">
+						<a href="javascript:;" id="logout" class="link btn-style-1">Log Out</a>
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</header>
+	<section class="hero-area">
+			<div class="hero-element-1"><img src="../public/img/home1/hero-element-1.png" alt=""></div>
+			<div class="hero-element-2"><img src="../public/img/home1/hero-element-2.png" alt=""></div>
+			<div class="hero-element-3"><img src="../public/img/home1/hero-element-3.png" alt=""></div>
+			<div class="hero-element-4"><img src="../public/img/home1/hero-element-4.png" alt=""></div>
+			<div class="hero-banner">
+					{% if userInfo._id %}
+					<div class="rightBox" id="userInfo">
+						{% if userInfo.isAdmin %}
+						<div class="lets-chat">
+								<a href="/admin" target="_blank" class="link btn-style-1">Enter Management</a>
+						</div>
+						{% endif %}
+					</div>
+					{% else %}
+					<div class="rightBox" id="loginBox">
+						<div class="title"><span>Login</span></div>
+						<div class="line"><span class="colDark">Username ：&nbsp;&nbsp;</span><input name="username" type="text" /><em></em></div>
+						<div class="line"><span class="colDark">Password ：&nbsp;&nbsp;&nbsp;</span><input name="password" type="password" /><em></em></div>
+						<div class="lets-chat">
+							<button class="link btn-style-1">Login</button>		
+						</div>
+						<p class="textRight">No Register？<a href="javascript:;" class="colMint">Register Now</a>　</p>
+						<p class="colWarning textCenter"></p>
+					</div>
+		
+					<div class="rightBox" id="registerBox"  style="display: none;">
+						<div class="title"><span>Register</span></div>
+						<div class="line"><span class="colDark">Username：</span><input name="username" type="text" /></div>
+						<div class="line"><span class="colDark">Password：&nbsp;</span><input name="password" type="password" /></div>
+						<div class="line"><span class="colDark">Make Sure：</span><input name="repassword" type="password" /></div>
+						<div class="lets-chat">
+								<button class="link btn-style-1">Register</button>		
+							</div>
+						<p class="textRight">Have User？<a href="javascript:;" class="colMint">Login Now</a>　</p>
+						<p class="colWarning textCenter"></p>
+					</div>
+		
+					{% endif %}
+		
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 col-12">
+						<div class="hero-content">
+							
+							{% if userInfo.username == '' %}
+							<h3 class="intro">Welcome</h3>
+							{% else %}
+							<h3 class="intro">Welcome</h3>
+							<h2 class="title">{{userInfo.username}}</h2>
+							<h3 class="desg">Begin your travel</h3>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+	</section>
+	<section class="info-tab-area">
+		<div class="tab-bg-element"><img src="../public/img/home1/tab-bg-elements.png" alt=""></div>
+		<div class="container">
+			<div class="info-tab">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+						{% if category == '' %}
+						<li class="nav-item">
+								<a class="nav-link active" id="blog-tab" href="/" role="tab" aria-selected="true">Blog</a>
+						</li>
+						{% else %}
+						<li class="nav-item">
+								<a class="nav-link" id="blog-tab" href="/" role="tab" aria-selected="false">Blog</a>
+						</li>
+						{% endif %}
+						{% for cate in categories %}		
+							{% if category == cate.id %}
+							<li class="nav-item">
+									<a class="nav-link active" id="{{cate.name}}-tab" href="/?category={{cate.id}}" role="tab" aria-selected="true">{{cate.name}}</a>
+							</li>
+							{% else %}
+							<li class="nav-item">
+									<a class="nav-link" id="{{cate.name}}-tab" href="/?category={{cate.id}}" role="tab" aria-selected="false">{{cate.name}}</a>
+							</li>
+							{% endif %}
+						{% endfor %} 
+				</ul>
+			</div>
+			<div class="tab-content" id="myTabContent">
+				{% if category == '' %}
+				<div class="tab-pane fade show active" id="blog" role="tabpanel" aria-labelledby="blog-tab">
+				{% block content %}{% endblock %}
+				</div>
+				{% else %}
+				<div class="tab-pane fade show active" id="{{category.name}}" role="tabpanel" aria-labelledby="{{category.name}}-tab">
+						{% block content %}{% endblock %}
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+	<script src="../public/js/theme.js"></script>
+	<script src="/public/js/index.js"></script>
+	
+</body>
+</html>

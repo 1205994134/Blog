@@ -1,0 +1,53 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    {% for content in contents %}  
+        <div class="single-testimonial">
+                <div class="info">
+                    <div class="info-right">
+                        <h3 class="name">{{content.title}}</h3>
+                        <p class="desg">
+                            Author：<span class="colInfo">{{content.user.username}}</span> - 
+                            Time：<span class="colInfo">{{content.addTime|date('Y年m月d日 H:i:s', -8*60)}}</span> -
+                            Read：<span class="colInfo">{{content.views}}</span> - 
+                            Comment：<span class="colInfo">{{content.comments.length}}</span></p>
+                    </div>
+                </div>
+                <p class="text">{{content.description}}</p>
+                <a class="more btn-style-1" href="/view?contentid={{content.id}}">Read All</a>
+            </div>
+    {% endfor %}
+    <div class="pager">
+                <ul class="clear">
+                    
+                    <li class="previous">
+                        {% if page <= 1 %}
+                        <span class="link btn-style-1">No Previous Page</span>
+                        {% else %}
+                        <a href="/?category={{category}}&page={{page-1}}" class="link btn-style-1">Previous</a>
+                        {% endif %}
+                    
+                    </li>
+
+                    {% if pages >0 %}
+                    <li>
+                        <strong>{{page}} / {{pages}}</strong>
+                    </li>
+                    {% else %}
+                    <li>
+                        <strong>0 / 0</strong>
+                    </li>
+                    {% endif %}
+
+                    <li class="next">
+                        {% if page >= pages %}
+                        <span class="link btn-style-1">No Next Page</span>
+                        {% else %}
+                        <a href="/?category={{category}}&page={{page+1}} " class="link btn-style-1">Next</a>
+                        {% endif %}
+                    
+                    </li>
+                    
+                </ul>
+    </div>
+{% endblock %}

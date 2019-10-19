@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="single-testimonial">
+        <div class="info">
+            <div class="info-right">
+                <h3 class="name">{{content.title}}</h3>
+                <p class="desg">
+                        Time：<span class="colInfo">{{content.addTime|date('Y年m月d日 H:i:s', -8*60)}}</span> -
+                        Read：<span class="colInfo">{{content.views}}</span> - 
+                        Comment：<span class="colInfo">{{content.comments.length}}</span>
+                </p>
+            </div>
+        </div>
+        <p class="text">{{content.content}}</p>
+    </div>
+    <div class="single-testimonial">
+            <div class="info">
+                <div class="info-right">
+                    <h3 class="name"><strong>Comment</strong></h3>
+                    {% if userInfo._id %}
+                            <textarea id="messageContent" class="text_input"></textarea>
+                            <input type="hidden" id="contentId" value="{{content.id}}">
+                            <p><a class="more btn-style-1" id="messageBtn">Submit</a>
+                    {% else %}
+                    <p class="text">Please Login First ！</p>
+                    {% endif %}
+                    
+                </div>
+            </div>
+        <span class="em">Totally Have <em id="messageCount">{{content.comments.length}}</em> Comments</span>
+        <div class="messageList"></div>
+    <div class="pager">
+        <ul class="clear">
+            <li class="previous">
+                <a href="" class="link btn-style-1">Previous</a>
+            </li>
+            <li></li>
+            <li class="next">
+                <a href="" class="link btn-style-1">Next</a>
+            </li>
+        </ul>
+    </div>
+    </div>
+    
+    <script type="text/javascript" src="/public/js/comment.js"></script>
+{% endblock %}
+
